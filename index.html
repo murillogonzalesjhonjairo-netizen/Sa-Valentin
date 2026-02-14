@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>san valentin 💖</title>
+
+<style>
+body{
+    background-image: url("Imagen/FondoInicio.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    margin:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* Animación del fondo */
+@keyframes fondoAnimado{
+    0%{background-position: 0% 50%;}
+    50%{background-position: 100% 50%;}
+    100%{background-position: 0% 50%;}
+}
+
+h1{
+    font-family: 'Freestyle Script', cursive;
+    font-size:clamp(24px, 5vw, 50px);
+    color:rgb(244, 81, 165);
+    text-shadow:2px 2px 5px rgb(239, 70, 135);
+}
+
+/* Botones */
+button{
+    font-family: 'Great Vibes', cursive;
+    padding:15px 35px;
+    font-size:clamp(16px, 4vw, 22px);
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    margin:20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#yes{
+    background: linear-gradient(45deg, #ff4d88, #ff99cc);
+    color:white;
+    font-size:25px;
+}
+
+#no{
+    background: linear-gradient(45deg, #666, #999);
+    color:white;
+}
+
+@media (hover: hover){
+    button:hover{
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+}
+
+button:active{
+    transform: scale(0.95);
+}
+
+/* 💖 Corazones estilo TikTok */
+.heart{
+    position: fixed;
+    bottom: -50px;
+    color: rgba(255, 77, 136, 0.7);
+    animation: floatUp linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp{
+    0%{
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.saludo{
+    font-family: 'Broadway', cursive;
+    font-size: clamp(30px, 8vw, 75px);
+    color: #f38dbe;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgb(252, 81, 138);
+}
+</style>
+</head>
+
+<body>
+<h2 class="saludo">Zabiera</h2>
+<h1>¿quieres ser mi San Valentín?</h1>
+
+<button id="yes">Sí 💕</button>
+<button id="no">No </button>
+
+<script>
+let yesBtn = document.getElementById("yes");
+let noBtn = document.getElementById("no");
+
+let size = 25;
+let mensajesSi = [
+    "Dale sí 🥺",
+    "Vamos sí 💖",
+    "Di que sí 😘",
+    "Solo sí 💕",
+    "No seas mala 😢",
+    "Porfaaa sí 💘"
+];
+
+let contador = 0;
+
+/* 🌸 GENERADOR DE FLORES */
+setInterval(() => {
+
+    let flor = document.createElement("div");
+    flor.classList.add("heart"); // usamos la misma animación
+
+    let flores = ["🌸","🌺","💖","🤍","💗"];
+    flor.innerHTML = flores[Math.floor(Math.random() * flores.length)];
+
+    let colors = [
+        "#ffb6d9",
+        "#ff99cc",
+        "#ffcce6",
+        "#ffffff"
+    ];
+
+    flor.style.color = colors[Math.floor(Math.random() * colors.length)];
+    flor.style.left = Math.random() * 100 + "vw";
+    flor.style.fontSize = (Math.random() * 25 + 20) + "px";
+    flor.style.animationDuration = (Math.random() * 4 + 5) + "s";
+
+    document.body.appendChild(flor);
+
+    setTimeout(() => flor.remove(), 8000);
+
+}, 400);
+
+/* Botón NO hace crecer el SÍ */
+noBtn.addEventListener("click", function(){
+    size += 15;
+    yesBtn.style.fontSize = size + "px";
+    yesBtn.innerHTML = mensajesSi[contador % mensajesSi.length];
+    contador++;
+});
+
+/* Botón SÍ */
+yesBtn.addEventListener("click", function(){
+    document.body.innerHTML = `
+    <!-- 🎥 Video fondo -->
+    <video autoplay muted loop id="bgVideo">
+        <source src="Videos/Fondo.mp4" type="video/mp4">
+    </video>
+
+    <!-- 🎵 Música -->
+    <video autoplay loop id="musicVideo" style="display:none;">
+        <source src="Videos/MusicaFondo.mp4" type="video/mp4">
+    </video>
+
+    <div class="mensaje">
+    <h1>Sabía que dirías que sí <br>Te amo muchísimo</h1>
+    </div>
+
+    <!-- 🤍 Frase final con flores debajo -->
+    <div class="contenedorFrase">
+    <div class="fraseFinal">
+    Amarte a la distancia no es fácil,<br>
+    pero es verdadero Te amo en los días largos<br>
+    y en las noches donde el silencio pesa,<br>
+    porque incluso lejos<br>
+    sigues siendo mi lugar seguro.<br>
+    La distancia no borra lo que siento,<br>
+    solo me enseña a amarte con más paciencia,<br>
+    con más fe,<br>
+    con más profundidad.<br>
+    Te pienso en cada detalle,<br>
+    en cada momento donde quisiera estar contigo<br>
+    y no puedo. Y aun así,<br>
+    mi corazón no duda sigue siendo tuyo.
+    </div>
+
+    <img src="Imagen/FloresBlancas.png" class="floresDecoracion">
+    </div>
+    `;
+
+    // Reproducir música después de un pequeño retraso
+    setTimeout(() => {
+        document.getElementById("musicVideo").play();
+    }, 100);
+
+    // Estilos dinámicos
+    let style = document.createElement("style");
+    style.innerHTML = `
+        body{
+            margin:0;
+            overflow:hidden;
+        }
+        #bgVideo{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            object-fit: cover;
+        }
+        .mensaje{
+            position: absolute;
+            top: 27%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 8px black;
+            font-size: clamp(24px, 5vw, 40px);
+            font-family: 'Freestyle Script', cursive;
+        }
+    .contenedorFrase{
+    position:absolute;
+    bottom:5%;
+    top:35%;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    width:100%;
+    max-width:500px;
+}
+
+.floresDecoracion{
+    position:absolute;
+    left:50%;
+    top:35%;
+    transform:translate(-50%, -50%);
+    width:clamp(200px, 45vw, 350px);
+    opacity:0.5; /* 50% transparencia */
+    z-index:1;
+}
+
+.fraseFinal{
+    position:relative;
+    z-index:2; /* más alto que la imagen */
+    color:white;
+    font-size:clamp(18px, 4vw, 28px);
+    font-family:'Brush Script MT', cursive;
+    text-shadow:2px 2px 8px black;
+}
+
+    `;
+    document.head.appendChild(style);
+});
+</script>
+</body>
+</html>
